@@ -37,7 +37,7 @@ contract Rebound is ERC721, IERC4907 {
     /// @param tokenId The NFT to get the user address for
     /// @return The user address for this NFT
     function userOf(uint256 tokenId) public view override virtual returns(address){
-        if (uint256(_users[tokenId].expires) >=  block.timestamp) {
+        if (uint256(_users[tokenId].expires) >= block.timestamp) {
             return  _users[tokenId].user;
         } else {
             return ownerOf(tokenId);
