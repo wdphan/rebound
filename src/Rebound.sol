@@ -2,12 +2,10 @@
 pragma solidity ^0.8.15;
 
 import "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "src/IRebound.sol";
+import "src/IERC4907.sol";
 
 /// This contract allows other user to rent for free
-
-contract Rebound is ERC721, IRebound {
-
+contract Rebound is ERC721, IERC4907 {
     struct UserInfo 
     {
         address user;   // address of user role
@@ -54,26 +52,32 @@ contract Rebound is ERC721, IRebound {
         if (uint256(_users[tokenId].expires) >=  block.timestamp) {
             return _users[tokenId].expires;
         } else {
-            return 10000000000000000000000000000000000000000000000000000;
+            return 115792089237316195423570985008687907853269984665640564039457584007913129639935;
         }
     }
 
     /// @dev See {IERC165-supportsInterface}.
     function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
-        return interfaceId == type(IRebound).interfaceId || super.supportsInterface(interfaceId);
+        return interfaceId == type(IERC4907).interfaceId || super.supportsInterface(interfaceId);
     }
 
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 tokenId
-    ) internal virtual {
-        super._beforeTokenTransfer(from, to, tokenId, 1);
+   function _beforeTokenTransfer(
+    address from,
+    address to,
+    uint256 tokenId,
+    uint256 /** batch **/
+  ) internal virtual override {
+    super._beforeTokenTransfer(from, to, tokenId, 1);
 
-        if (from != to && _users[tokenId].user != address(0)) {
-            delete _users[tokenId];
-            emit UpdateUser(tokenId, address(0), 0);
-        }
+    if (from != to && _users[tokenId].user != address(0)) {
+      delete _users[tokenId];
+      emit UpdateUser(tokenId, address(0), 0);
+    }
+  }
+
+    function mint(uint256 tokenId) public {
+        // this is the mint function that you need to customize for yourself
+        _mint(msg.sender, tokenId);
     }
 
     function time() public view returns (uint256) {
