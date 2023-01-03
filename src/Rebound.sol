@@ -22,10 +22,10 @@ contract Rebound is ERC721, IERC4907 {
     /// @param user  The new user of the NFT
     /// @param expires  UNIX timestamp, The new user could use the NFT before expires
     function setUser(uint256 tokenId, address user, uint64 expires) public override virtual{
-        require(_isApprovedOrOwner(msg.sender, tokenId), "ERC4907: transfer caller is not owner nor approved");
+
         UserInfo storage info =  _users[tokenId];
 
-        // require(info.expires < block.timestamp, "Already rented to someone");
+        require(info.expires < block.timestamp, "Already rented to someone");
 
         info.user = user;
         info.expires = expires;
@@ -52,13 +52,17 @@ contract Rebound is ERC721, IERC4907 {
         if (uint256(_users[tokenId].expires) >=  block.timestamp) {
             return _users[tokenId].expires;
         } else {
-            return 115792089237316195423570985008687907853269984665640564039457584007913129639935;
+            return 100000000000000000000000000000;
         }
     }
 
     /// @dev See {IERC165-supportsInterface}.
     function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
         return interfaceId == type(IERC4907).interfaceId || super.supportsInterface(interfaceId);
+    }
+
+    function isApprovedOrOwner(address sender, uint tokenId) public returns (bool){
+      ERC721._isApprovedOrOwner(sender, tokenId);
     }
 
    function _beforeTokenTransfer(
