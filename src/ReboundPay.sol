@@ -13,6 +13,8 @@ contract ReboundPay is ERC721 {
         uint marketplaceFee;
     }
 
+    uint public marketplaceFee;
+
     mapping (uint256  => UserInfo) internal _users;
 
     event UpdateUser(uint256 indexed tokenId, address indexed user, uint64 expires);
@@ -24,11 +26,9 @@ contract ReboundPay is ERC721 {
     /// Throws if `tokenId` is not valid NFT
     /// @param user  The new user of the NFT
     /// @param expires  UNIX timestamp, The new user could use the NFT before expires
-    function setUser(uint256 tokenId, address user, uint64 expires, uint rentFee, uint marketplaceFee) public  virtual{
-        require(_isApprovedOrOwner(msg.sender, tokenId), "ERC4907: transfer caller is not owner nor approved");
+    function setUser(uint256 tokenId, address user, uint64 expires, uint rentFee) public  virtual{
+  
         UserInfo storage info =  _users[tokenId];
-
-        // require(info.expires < block.timestamp, "Already rented to someone");
 
        require(info.expires < block.timestamp, "Already rented to someone");
         // sets marketplace fee of 1%
@@ -61,7 +61,7 @@ contract ReboundPay is ERC721 {
         if (uint256(_users[tokenId].expires) >=  block.timestamp) {
             return _users[tokenId].expires;
         } else {
-            return 115792089237316195423570985008687907853269984665640564039457584007913129639935;
+            return 100000000000000000000000000000;
         }
     }
 
@@ -74,7 +74,7 @@ contract ReboundPay is ERC721 {
     /// @dev The zero value indicates that the NFT is not for rent
     /// @param tokenId The NFT to get the rental fee for
     /// @return The rental fee for this NFT (percentage of the rentPrice)
-    function rentFee(uint256 tokenId) public view  virtual returns(uint){
+    function getRentFee(uint256 tokenId) public view  virtual returns(uint){
         return _users[tokenId].rentFee;
     }
 
