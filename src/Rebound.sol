@@ -4,12 +4,6 @@ pragma solidity ^0.8.15;
 import "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "src/IERC4907.sol";
 
-/// @title Rebound
-/// @author William Phan
-/// @notice Enable renting to other users for free
-/// @dev All function calls are currently implemented without side effects
-/// @custom:experimental This is an experimental contract.
-
 contract Rebound is ERC721, IERC4907 {
 
     /// @dev Struct to store information about users of NFTs

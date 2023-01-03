@@ -6,7 +6,7 @@ import "src/IERC4907.sol";
 
 /// @title Rebound Pay
 /// @author William Phan
-/// @notice Enable renting to other users for a rental fee and a marketplace fee
+/// @notice Enable renting to other users for a rental fee and marketplace fee
 /// @dev All function calls are currently implemented without side effects
 /// @custom:experimental This is an experimental contract.
 
