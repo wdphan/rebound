@@ -14,7 +14,7 @@ interface IReboundPay {
     /// @param tokenId The NFT whose user was updated
     /// @param user The new user of the NFT
     /// @param expires The UNIX timestamp when the new user's rental period expires
-    event UpdateUser(uint256 indexed tokenId, address indexed user, uint64 expires);
+    event Update(uint256 indexed tokenId, address indexed user, uint64 expires);
 
     /// @notice set the user and expires of an NFT
     /// @dev The zero address indicates there is no user

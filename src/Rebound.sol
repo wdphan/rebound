@@ -20,7 +20,7 @@ contract Rebound is ERC721, IERC4907 {
     /// @param tokenId The NFT whose user was updated
     /// @param user The new user of the NFT
     /// @param expires The UNIX timestamp when the new user's rental period expires
-    event UpdateUser(uint256 indexed tokenId, address indexed user, uint64 expires);
+    event Update(uint256 indexed tokenId, address indexed user, uint64 expires);
 
     /// @dev Constructor to initialize the contract with name and symbol
     /// @param name_ Name of the NFTs
@@ -84,18 +84,17 @@ contract Rebound is ERC721, IERC4907 {
     /// @param from address of the current owner of the token
     /// @param to address of the new owner
     /// @param tokenId uint256 ID of the token being transferred
-    /// @param batch uint256 batch number (0 for single transfers)
    function _beforeTokenTransfer(
     address from,
     address to,
-    uint256 tokenId,
-    uint256 /** batch **/
-  ) internal virtual override {
+    uint256 tokenId
+    // uint256 /** batch **/
+  ) internal virtual  {
     super._beforeTokenTransfer(from, to, tokenId, 1);
 
     if (from != to && _users[tokenId].user != address(0)) {
       delete _users[tokenId];
-      emit UpdateUser(tokenId, address(0), 0);
+      emit Update(tokenId, address(0), 0);
     }
   }
 

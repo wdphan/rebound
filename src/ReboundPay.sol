@@ -2,7 +2,7 @@
 pragma solidity ^0.8.15;
 
 import "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "src/IERC4907.sol";
+import "src/interfaces/IERC4907.sol";
 
 /// @title Rebound Pay
 /// @author William Phan
@@ -30,7 +30,7 @@ contract ReboundPay is ERC721 {
     /// @param tokenId The NFT whose user was updated
     /// @param user The new user of the NFT
     /// @param expires The UNIX timestamp when the new user's rental period expires
-    event UpdateUser(uint256 indexed tokenId, address indexed user, uint64 expires);
+    event Update(uint256 indexed tokenId, address indexed user, uint64 expires);
 
     /// @notice Create a new instance of the contract
     /// @param name_ The name of the ERC721 token
@@ -55,7 +55,7 @@ contract ReboundPay is ERC721 {
         info.expires = expires;
         info.rentFee = rentFee;
         info.marketplaceFee = marketplaceFee;
-        emit UpdateUser(tokenId, user, expires);
+        emit Update(tokenId, user, expires);
     }
 
     /// @notice Get the user address of an NFT
@@ -113,18 +113,17 @@ contract ReboundPay is ERC721 {
     /// @param from The address the NFT is being transferred from
     /// @param to The address the NFT is being transferred to
     /// @param tokenId The NFT being transferred
-    /// @param batch The batch size of the transfer (unused)
    function _beforeTokenTransfer(
     address from,
     address to,
-    uint256 tokenId,
-    uint256 /** batch **/
-  ) internal virtual override {
+    uint256 tokenId
+    // uint256 /** batch **/
+  ) internal virtual  {
     super._beforeTokenTransfer(from, to, tokenId, 1);
 
     if (from != to && _users[tokenId].user != address(0)) {
       delete _users[tokenId];
-      emit UpdateUser(tokenId, address(0), 0);
+      emit Update(tokenId, address(0), 0);
     }
   }
 

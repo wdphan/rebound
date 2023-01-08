@@ -14,7 +14,7 @@ interface IRebound {
     /// @param tokenId The NFT whose user was updated
     /// @param user The new user of the NFT
     /// @param expires The UNIX timestamp when the new user's rental period expires
-    event UpdateUser(uint256 indexed tokenId, address indexed user, uint64 expires);
+    event Update(uint256 indexed tokenId, address indexed user, uint64 expires);
     
     /// @notice set the user and expires of an NFT
     /// @dev The zero address indicates there is no user
@@ -22,7 +22,7 @@ interface IRebound {
     /// @param user  The new user of the NFT
     /// @param expires  UNIX timestamp, The new user could use the NFT before expires
     function setUser(uint256 tokenId, address user, uint64 expires) external;
-    
+
     /// @notice Get the user address of an NFT
     /// @dev The zero address indicates that there is no user or the user is expired
     /// @param tokenId The NFT to get the user address for
