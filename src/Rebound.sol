@@ -2,7 +2,7 @@
 pragma solidity ^0.8.15;
 
 import "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "src/IERC4907.sol";
+import "src/interfaces/IERC4907.sol";
 
 contract Rebound is ERC721, IERC4907 {
 
@@ -15,6 +15,12 @@ contract Rebound is ERC721, IERC4907 {
 
     /// @dev Mapping to store UserInfo structs indexed by NFT token ID
     mapping (uint256  => UserInfo) internal _users;
+
+    /// @dev Event emitted when the user of an NFT is updated
+    /// @param tokenId The NFT whose user was updated
+    /// @param user The new user of the NFT
+    /// @param expires The UNIX timestamp when the new user's rental period expires
+    event UpdateUser(uint256 indexed tokenId, address indexed user, uint64 expires);
 
     /// @dev Constructor to initialize the contract with name and symbol
     /// @param name_ Name of the NFTs
