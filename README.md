@@ -1,7 +1,12 @@
 # rebound
-Rent NFTs for Free or with a Fee
+>Rent NFTs for Free or with a Fee
 
+Playing around with IERC4907. Provided are two implementations. Each rental is limited to one individual (designated address).
 
+1. Rent for free
+2. Rent for a rental fee
+
+[Contract Source](src) · [Contract Tests](test)
 
 ## Forking
 
