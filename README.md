@@ -1,4 +1,4 @@
-# rebound
+# Rebound
 >Rent NFTs for Free or with a Fee
 
 Playing around with IERC4907. Provided are two implementations. Each rental is limited to one individual (designated address).
