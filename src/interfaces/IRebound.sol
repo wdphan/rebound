@@ -10,6 +10,10 @@ interface IRebound {
         uint64 expires; // unix timestamp, user expires
     }
 
+    /// @dev gets information about a user of an NFT
+    /// @param nftId for the nft ID
+    function _users(uint256 nftId) external returns (address user, uint64 expires, uint rentFee, uint marketplaceFee);
+
     /// @dev Event emitted when the user of an NFT is updated
     /// @param tokenId The NFT whose user was updated
     /// @param user The new user of the NFT
