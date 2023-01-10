@@ -3,11 +3,13 @@ pragma solidity ^0.8.15;
 
 interface IReboundPay {
 
-     /// @dev Struct to store information about users of NFTs
+    /// @dev Struct containing information about a user of an NFT
     struct UserInfo 
     {
         address user;   // address of user role
         uint64 expires; // unix timestamp, user expires
+        uint rentFee; // rentfee
+        uint marketplaceFee; // marketplace fee
     }
 
     /// @dev Event emitted when the user of an NFT is updated

@@ -3,15 +3,9 @@ pragma solidity ^0.8.15;
 
 import "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "src/interfaces/IERC4907.sol";
+import "src/interfaces/IRebound.sol";
 
-contract Rebound is ERC721, IERC4907 {
-
-    /// @dev Struct to store information about users of NFTs
-    struct UserInfo 
-    {
-        address user;   // address of user role
-        uint64 expires; // unix timestamp, user expires
-    }
+contract Rebound is IRebound, ERC721, IERC4907 {
 
     /// @dev Mapping to store UserInfo structs indexed by NFT token ID
     mapping (uint256  => UserInfo) internal _users;

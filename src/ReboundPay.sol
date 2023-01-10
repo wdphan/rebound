@@ -3,6 +3,7 @@ pragma solidity ^0.8.15;
 
 import "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "src/interfaces/IERC4907.sol";
+import "src/interfaces/IReboundPay.sol";
 
 /// @title Rebound Pay
 /// @author William Phan
@@ -10,7 +11,7 @@ import "src/interfaces/IERC4907.sol";
 /// @dev All function calls are currently implemented without side effects
 /// @custom:experimental This is an experimental contract.
 
-contract ReboundPay is ERC721 {
+contract ReboundPay is IReboundPay, ERC721 {
     /// @dev Struct containing information about a user of an NFT
     struct UserInfo 
     {
